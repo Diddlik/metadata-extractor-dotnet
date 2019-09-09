@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
@@ -231,6 +230,8 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagIptcNaa = 0x83BB;
 
+        public const int TagPhotoshopSettings = 0x8649;
+
         public const int TagInterColorProfile = 0x8773;
 
         /// <summary>Exposure program that the camera used when image was taken.</summary>
@@ -348,6 +349,7 @@ namespace MetadataExtractor.Formats.Exif
         /// '18' standard light B, '19' standard light C, '20' D55, '21' D65,
         /// '22' D75, '255' other.
         /// </remarks>
+        /// <seealso cref="TagWhiteBalanceMode" />
         public const int TagWhiteBalance = 0x9208;
 
         /// <summary>
@@ -535,6 +537,7 @@ namespace MetadataExtractor.Formats.Exif
         /// 1 = Manual white balance
         /// Other = reserved
         /// </remarks>
+        /// <seealso cref="TagWhiteBalance" />
         public const int TagWhiteBalanceMode = 0xA403;
 
         /// <summary>This tag indicates the digital zoom ratio when the image was shot.</summary>
@@ -723,7 +726,7 @@ namespace MetadataExtractor.Formats.Exif
 
         public const int TagLens = 0xFDEA;
 
-        protected static void AddExifTagNames([NotNull] Dictionary<int, string> map)
+        protected static void AddExifTagNames(Dictionary<int, string> map)
         {
             map[TagInteropIndex] = "Interoperability Index";
             map[TagInteropVersion] = "Interoperability Version";
@@ -794,6 +797,7 @@ namespace MetadataExtractor.Formats.Exif
             map[TagExposureTime] = "Exposure Time";
             map[TagFNumber] = "F-Number";
             map[TagIptcNaa] = "IPTC/NAA";
+            map[TagPhotoshopSettings] = "Photoshop Settings";
             map[TagInterColorProfile] = "Inter Color Profile";
             map[TagExposureProgram] = "Exposure Program";
             map[TagSpectralSensitivity] = "Spectral Sensitivity";

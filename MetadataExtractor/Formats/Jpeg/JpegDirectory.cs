@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,6 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -105,8 +104,7 @@ namespace MetadataExtractor.Formats.Jpeg
         /// Use <see cref="GetNumberOfComponents"/> for bounds-checking.
         /// </param>
         /// <returns>the JpegComponent having the specified number, or <c>null</c>.</returns>
-        [CanBeNull]
-        public JpegComponent GetComponent(int componentNumber)
+        public JpegComponent? GetComponent(int componentNumber)
         {
             var tagType = TagComponentData1 + componentNumber;
             return GetObject(tagType) as JpegComponent;

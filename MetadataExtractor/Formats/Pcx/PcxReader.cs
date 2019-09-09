@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,6 @@
 #endregion
 
 using System;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Pcx
@@ -39,8 +38,7 @@ namespace MetadataExtractor.Formats.Pcx
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PcxReader
     {
-        [NotNull]
-        public PcxDirectory Extract([NotNull] SequentialReader reader)
+        public PcxDirectory Extract(SequentialReader reader)
         {
             reader = reader.WithByteOrder(isMotorolaByteOrder: false);
 

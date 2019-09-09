@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,6 @@
 #endregion
 
 using System;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.IO
 {
@@ -37,11 +36,10 @@ namespace MetadataExtractor.IO
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class ByteArrayReader : IndexedReader
     {
-        [NotNull]
         private readonly byte[] _buffer;
         private readonly int _baseOffset;
 
-        public ByteArrayReader([NotNull] byte[] buffer, int baseOffset = 0, bool isMotorolaByteOrder = true)
+        public ByteArrayReader(byte[] buffer, int baseOffset = 0, bool isMotorolaByteOrder = true)
             : base(isMotorolaByteOrder)
         {
             if (baseOffset < 0)

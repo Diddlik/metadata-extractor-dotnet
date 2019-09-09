@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -69,8 +69,9 @@ namespace MetadataExtractor.Tests.Formats.Exif
         {
             var gpsDirectory = ExifReaderTest.ProcessSegmentBytes<GpsDirectory>("Data/withExifAndIptc.jpg.app1.0", JpegSegmentType.App1);
             var geoLocation = gpsDirectory.GetGeoLocation();
-            Assert.Equal(54.989666666666665, geoLocation.Latitude);
-            Assert.Equal(-1.9141666666666666, geoLocation.Longitude);
+            Assert.NotNull(geoLocation);
+            Assert.Equal(54.989666666666665, geoLocation!.Latitude);
+            Assert.Equal(-1.9141666666666666, geoLocation!.Longitude);
         }
 
         [Fact]

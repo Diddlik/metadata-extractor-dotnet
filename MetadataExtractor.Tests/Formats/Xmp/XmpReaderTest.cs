@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,6 +33,8 @@ namespace MetadataExtractor.Tests.Formats.Xmp
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class XmpReaderTest
     {
+        private const int expectedPropertyCount = 167;
+
         private readonly XmpDirectory _directory;
 
         public XmpReaderTest()
@@ -50,9 +52,9 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         }
 
         [Fact]
-        public void testExtract_PropertyCount()
+        public void Extract_PropertyCount()
         {
-            Assert.Equal(179, _directory.GetInt32(XmpDirectory.TagXmpValueCount));
+            Assert.Equal(expectedPropertyCount, _directory.GetInt32(XmpDirectory.TagXmpValueCount));
         }
 
         [Fact]
@@ -60,7 +62,7 @@ namespace MetadataExtractor.Tests.Formats.Xmp
         {
             var propertyMap = _directory.GetXmpProperties();
 
-            Assert.Equal(179, propertyMap.Count);
+            Assert.Equal(expectedPropertyCount, propertyMap.Count);
 
             Assert.True(propertyMap.ContainsKey("photoshop:Country"));
             Assert.Equal("Deutschland", propertyMap["photoshop:Country"]);

@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Gif
 {
@@ -31,7 +30,7 @@ namespace MetadataExtractor.Formats.Gif
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class GifImageDescriptor : TagDescriptor<GifImageDirectory>
     {
-        public GifImageDescriptor([NotNull] GifImageDirectory directory)
+        public GifImageDescriptor(GifImageDirectory directory)
             : base(directory)
         {
         }

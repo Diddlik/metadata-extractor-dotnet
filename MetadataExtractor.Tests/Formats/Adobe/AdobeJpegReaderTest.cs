@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,6 @@
 #endregion
 
 using System.IO;
-using JetBrains.Annotations;
 using MetadataExtractor.Formats.Adobe;
 using MetadataExtractor.Formats.Jpeg;
 using MetadataExtractor.IO;
@@ -35,8 +34,7 @@ namespace MetadataExtractor.Tests.Formats.Adobe
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class AdobeJpegReaderTest
     {
-        [NotNull]
-        private static AdobeJpegDirectory ProcessBytes([NotNull] string filePath)
+        private static AdobeJpegDirectory ProcessBytes(string filePath)
         {
             return new AdobeJpegReader()
                 .Extract(new SequentialByteArrayReader(File.ReadAllBytes(TestDataUtil.GetPath(filePath))));

@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Avi
 {
@@ -31,20 +30,21 @@ namespace MetadataExtractor.Formats.Avi
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class AviDescriptor : TagDescriptor<AviDirectory>
     {
-        public AviDescriptor([NotNull] AviDirectory directory)
+        public AviDescriptor(AviDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
-            case AviDirectory.TAG_WIDTH:
-            case AviDirectory.TAG_HEIGHT:
-                return Directory.GetString(tagType) + " pixels";
+                case AviDirectory.TAG_WIDTH:
+                case AviDirectory.TAG_HEIGHT:
+                    return Directory.GetString(tagType) + " pixels";
+                default:
+                    return base.GetDescription(tagType);
             }
-            return base.GetDescription(tagType);
         }
     }
 }

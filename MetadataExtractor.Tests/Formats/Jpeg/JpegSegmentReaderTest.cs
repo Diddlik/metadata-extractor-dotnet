@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,10 +34,10 @@ namespace MetadataExtractor.Tests.Formats.Jpeg
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class JpegSegmentReaderTest
     {
-        private static IReadOnlyList<JpegSegment> ReadSegments(string fileName, ICollection<JpegSegmentType> segmentTypes = null)
+        private static IReadOnlyList<JpegSegment> ReadSegments(string fileName, ICollection<JpegSegmentType>? segmentTypes = null)
         {
-            using (var stream = TestDataUtil.OpenRead(fileName))
-                return JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();
+            using var stream = TestDataUtil.OpenRead(fileName);
+            return JpegSegmentReader.ReadSegments(new SequentialStreamReader(stream), segmentTypes).ToList();
         }
 
         [Fact]

@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,6 @@
 #endregion
 
 using System.IO;
-using JetBrains.Annotations;
 using System.Collections.Generic;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
@@ -41,8 +40,7 @@ namespace MetadataExtractor.Formats.Pcx
     public static class PcxMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>();
 
@@ -54,8 +52,7 @@ namespace MetadataExtractor.Formats.Pcx
             return directories;
         }
 
-        [NotNull]
-        public static PcxDirectory ReadMetadata([NotNull] Stream stream)
+        public static PcxDirectory ReadMetadata(Stream stream)
         {
             return new PcxReader().Extract(new SequentialStreamReader(stream));
         }

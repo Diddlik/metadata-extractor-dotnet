@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +37,7 @@ namespace MetadataExtractor.Tests.IO
         public void ConstructWithNullStreamThrows()
         {
             // ReSharper disable once AssignNullToNotNullAttribute
-            Assert.Throws<ArgumentNullException>(() => new SequentialStreamReader(null));
+            Assert.Throws<ArgumentNullException>(() => new SequentialStreamReader(null!));
         }
 
         protected override SequentialReader CreateReader(byte[] bytes)

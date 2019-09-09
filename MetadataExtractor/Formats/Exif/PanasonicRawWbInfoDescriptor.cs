@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Exif
 {
@@ -35,12 +34,12 @@ namespace MetadataExtractor.Formats.Exif
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class PanasonicRawWbInfoDescriptor : TagDescriptor<PanasonicRawWbInfoDirectory>
     {
-        public PanasonicRawWbInfoDescriptor([NotNull] PanasonicRawWbInfoDirectory directory)
+        public PanasonicRawWbInfoDescriptor(PanasonicRawWbInfoDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
             switch (tagType)
             {
@@ -57,13 +56,11 @@ namespace MetadataExtractor.Formats.Exif
             }
         }
 
-        [CanBeNull]
-        public string GetWbTypeDescription(int tagType)
+        public string? GetWbTypeDescription(int tagType)
         {
-            if (!Directory.TryGetUInt16(tagType, out ushort wbtype))
+            if (!Directory.TryGetUInt16(tagType, out ushort value))
                 return null;
-
-            return base.GetLightSourceDescription(wbtype);
+            return ExifDescriptorBase<PanasonicRawWbInfoDirectory>.GetWhiteBalanceDescription(value);
         }
     }
 }

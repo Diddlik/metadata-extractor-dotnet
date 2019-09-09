@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using JetBrains.Annotations;
 
 // ReSharper disable CommentTypo
 // ReSharper disable StringLiteralTypo
@@ -44,8 +43,12 @@ namespace MetadataExtractor.Util
             { FileType.Tiff, Encoding.UTF8.GetBytes("MM"), new byte[] { 0x00, 0x2a } },
             { FileType.Psd, Encoding.UTF8.GetBytes("8BPS") },
             { FileType.Png, new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D, 0x49, 0x48, 0x44, 0x52 } },
-            { FileType.Bmp, Encoding.UTF8.GetBytes("BM") },
-            // TODO technically there are other very rare magic numbers for OS/2 BMP files
+            { FileType.Bmp, Encoding.UTF8.GetBytes("BM") }, // Standard Bitmap Windows and OS/2
+            { FileType.Bmp, Encoding.UTF8.GetBytes("BA") }, // OS/2 Bitmap Array
+            { FileType.Bmp, Encoding.UTF8.GetBytes("CI") }, // OS/2 Color Icon
+            { FileType.Bmp, Encoding.UTF8.GetBytes("CP") }, // OS/2 Color Pointer
+            { FileType.Bmp, Encoding.UTF8.GetBytes("IC") }, // OS/2 Icon
+            { FileType.Bmp, Encoding.UTF8.GetBytes("PT") }, // OS/2 Pointer
             { FileType.Gif, Encoding.UTF8.GetBytes("GIF87a") },
             { FileType.Gif, Encoding.UTF8.GetBytes("GIF89a") },
             { FileType.Ico, new byte[] { 0x00, 0x00, 0x01, 0x00 } },
@@ -76,15 +79,22 @@ namespace MetadataExtractor.Util
 
         private static readonly IEnumerable<Func<byte[], FileType>> _fixedCheckers = new Func<byte[], FileType>[]
         {
-            bytes => bytes.RegionEquals(4, 4, Encoding.UTF8.GetBytes("ftyp"))
-                ? FileType.QuickTime
-                : FileType.Unknown
+            bytes =>
+            {
+                if (!bytes.RegionEquals(4, 4, Encoding.UTF8.GetBytes("ftyp")))
+                    return FileType.Unknown;
+                if (bytes.RegionEquals(8, 4, Encoding.UTF8.GetBytes("qt  ")))
+                    return FileType.QuickTime;
+                if (bytes.RegionEquals(8, 4, Encoding.UTF8.GetBytes("crx ")))
+                    return FileType.Crx;
+                return FileType.Unknown;
+            }
         };
 
         /// <summary>Examines the a file's first bytes and estimates the file's type.</summary>
         /// <exception cref="ArgumentException">Stream does not support seeking.</exception>
         /// <exception cref="IOException">An IO error occurred, or the input stream ended unexpectedly.</exception>
-        public static FileType DetectFileType([NotNull] Stream stream)
+        public static FileType DetectFileType(Stream stream)
         {
             if (!stream.CanSeek)
                 throw new ArgumentException("Must support seek", nameof(stream));
@@ -130,7 +140,7 @@ namespace MetadataExtractor.Util
 
     internal static class ByteArrayExtensions
     {
-        public static bool RegionEquals([NotNull] this byte[] bytes, int offset, int count, [NotNull] byte[] comparand)
+        public static bool RegionEquals(this byte[] bytes, int offset, int count, byte[] comparand)
         {
             if (offset < 0 ||                   // invalid arg
                 count < 0 ||                    // invalid arg

@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,6 @@
 
 using System;
 using System.IO;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.IO
 {
@@ -34,12 +33,11 @@ namespace MetadataExtractor.IO
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class IndexedSeekingReader : IndexedReader
     {
-        [NotNull]
         private readonly Stream _stream;
 
         private readonly int _baseOffset;
 
-        public IndexedSeekingReader([NotNull] Stream stream, int baseOffset = 0, bool isMotorolaByteOrder = true)
+        public IndexedSeekingReader(Stream stream, int baseOffset = 0, bool isMotorolaByteOrder = true)
             : base(isMotorolaByteOrder)
         {
             if (stream == null)

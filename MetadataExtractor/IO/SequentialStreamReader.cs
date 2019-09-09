@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,19 +25,17 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.IO
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public class SequentialStreamReader : SequentialReader
     {
-        [NotNull]
         private readonly Stream _stream;
 
         public override long Position => _stream.Position;
 
-        public SequentialStreamReader([NotNull] Stream stream, bool isMotorolaByteOrder = true)
+        public SequentialStreamReader(Stream stream, bool isMotorolaByteOrder = true)
             : base(isMotorolaByteOrder)
         {
             _stream = stream ?? throw new ArgumentNullException(nameof(stream));
@@ -97,6 +95,11 @@ namespace MetadataExtractor.IO
                 // Stream ended, or error reading from underlying source
                 return false;
             }
+        }
+
+        public override int Available()
+        {
+            return (int)(_stream.Length - _stream.Position);
         }
 
         public override bool IsCloserToEnd(long numberOfBytes)

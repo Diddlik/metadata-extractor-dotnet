@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,15 +34,12 @@ namespace MetadataExtractor.Tests.Formats.Photoshop
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PsdReaderTest
     {
-        [NotNull]
-        private static PsdHeaderDirectory ProcessBytes([NotNull] string filePath)
+        private static PsdHeaderDirectory ProcessBytes(string filePath)
         {
-            using (var stream = TestDataUtil.OpenRead(filePath))
-            {
-                var directory = new PsdReader().Extract(new SequentialStreamReader(stream)).OfType<PsdHeaderDirectory>().FirstOrDefault();
-                Assert.NotNull(directory);
-                return directory;
-            }
+            using var stream = TestDataUtil.OpenRead(filePath);
+            var directory = new PsdReader().Extract(new SequentialStreamReader(stream)).OfType<PsdHeaderDirectory>().FirstOrDefault();
+            Assert.NotNull(directory);
+            return directory;
         }
 
         [Fact]

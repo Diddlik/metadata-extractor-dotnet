@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -21,31 +21,27 @@
 //
 #endregion
 
-using JetBrains.Annotations;
-
 namespace MetadataExtractor.Formats.Gif
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     /// <author>Kevin Mott https://github.com/kwhopper</author>
     public class GifAnimationDescriptor : TagDescriptor<GifAnimationDirectory>
     {
-        public GifAnimationDescriptor([NotNull] GifAnimationDirectory directory)
+        public GifAnimationDescriptor(GifAnimationDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case GifAnimationDirectory.TagIterationCount:
-                    return GetIterationCountDescription();
-                default:
-                    return null;
-            }
+                GifAnimationDirectory.TagIterationCount => GetIterationCountDescription(),
+                _ => null,
+            };
         }
 
-        private string GetIterationCountDescription()
+        private string? GetIterationCountDescription()
         {
             if (!Directory.TryGetUInt16(GifAnimationDirectory.TagIterationCount, out ushort count))
                 return null;

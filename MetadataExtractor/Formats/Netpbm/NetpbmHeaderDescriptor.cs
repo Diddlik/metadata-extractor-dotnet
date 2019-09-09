@@ -1,6 +1,6 @@
 ﻿#region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,31 +22,26 @@
 //
 #endregion
 
-using JetBrains.Annotations;
-
 namespace MetadataExtractor.Formats.Netpbm
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class NetpbmHeaderDescriptor : TagDescriptor<NetpbmHeaderDirectory>
     {
-        public NetpbmHeaderDescriptor([NotNull] NetpbmHeaderDirectory directory)
+        public NetpbmHeaderDescriptor(NetpbmHeaderDirectory directory)
             : base(directory)
         {
         }
 
-        public override string GetDescription(int tagType)
+        public override string? GetDescription(int tagType)
         {
-            switch (tagType)
+            return tagType switch
             {
-                case NetpbmHeaderDirectory.TagFormatType:
-                    return GetFormatTypeDescription();
-                default:
-                    return base.GetDescription(tagType);
-            }
+                NetpbmHeaderDirectory.TagFormatType => GetFormatTypeDescription(),
+                _ => base.GetDescription(tagType),
+            };
         }
 
-        [CanBeNull]
-        private string GetFormatTypeDescription()
+        private string? GetFormatTypeDescription()
         {
             return GetIndexedDescription(NetpbmHeaderDirectory.TagFormatType, 1,
                 "Portable BitMap (ASCII, B&W)",

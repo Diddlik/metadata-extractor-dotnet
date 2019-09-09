@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +25,6 @@
 #if !NETSTANDARD1_3
 using System;
 #endif
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.Jpeg
 {
@@ -54,31 +53,27 @@ namespace MetadataExtractor.Formats.Jpeg
 
         /// <summary>Returns the component name (one of: Y, Cb, Cr, I, or Q)</summary>
         /// <value>the component name</value>
-        [NotNull]
         public string Name
         {
             get
             {
-                switch (Id)
+                return Id switch
                 {
-                    case 1:
-                        return "Y";
-                    case 2:
-                        return "Cb";
-                    case 3:
-                        return "Cr";
-                    case 4:
-                        return "I";
-                    case 5:
-                        return "Q";
-                    default:
-                        return $"Unknown ({Id})";
-                }
+                    1 => "Y",
+                    2 => "Cb",
+                    3 => "Cr",
+                    4 => "I",
+                    5 => "Q",
+                    _ => $"Unknown ({Id})",
+                };
             }
         }
 
         public int HorizontalSamplingFactor => (_samplingFactorByte >> 4) & 0x0F;
 
         public int VerticalSamplingFactor => _samplingFactorByte & 0x0F;
+
+        public override string ToString()
+            => $"Quantization table {QuantizationTableNumber}, Sampling factors {HorizontalSamplingFactor} horiz/{VerticalSamplingFactor} vert";
     }
 }

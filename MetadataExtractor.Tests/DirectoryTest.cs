@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -86,7 +86,7 @@ namespace MetadataExtractor.Tests
             _directory.Set(tagType, inputValues);
             var outputValues = _directory.GetInt32Array(tagType);
             Assert.NotNull(outputValues);
-            Assert.Equal(inputValues.Length, outputValues.Length);
+            Assert.Equal(inputValues.Length, outputValues!.Length);
             for (var i = 0; i < inputValues.Length; i++)
             {
                 var inputValue = inputValues[i];
@@ -141,7 +141,7 @@ namespace MetadataExtractor.Tests
             _directory.Set(1, ints);
             var bytes = _directory.GetByteArray(1);
             Assert.NotNull(bytes);
-            Assert.Equal(ints.Length, bytes.Length);
+            Assert.Equal(ints.Length, bytes!.Length);
             Assert.Equal(1, bytes[0]);
         }
 

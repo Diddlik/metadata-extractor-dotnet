@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,8 +38,8 @@ namespace MetadataExtractor.Tests.Formats.Png
         /// <exception cref="System.IO.IOException"/>
         private static IList<PngChunk> ProcessFile(string filePath)
         {
-            using (var stream = TestDataUtil.OpenRead(filePath))
-                return new PngChunkReader().Extract(new SequentialStreamReader(stream), null).ToList();
+            using var stream = TestDataUtil.OpenRead(filePath);
+            return new PngChunkReader().Extract(new SequentialStreamReader(stream), null).ToList();
         }
 
         [Fact]

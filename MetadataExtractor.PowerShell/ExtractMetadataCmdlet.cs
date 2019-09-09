@@ -1,6 +1,6 @@
 ﻿#region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,7 +36,7 @@ namespace MetadataExtractor.PowerShell
     {
         [Parameter(Position = 0, Mandatory = true, HelpMessage = "Path to the file to process")]
         [ValidateNotNullOrEmpty]
-        public string FilePath { get; set; }
+        public string FilePath { get; set; } = default!;
 
         [Parameter(HelpMessage = "Show raw value")]
         public SwitchParameter Raw { get; set; }

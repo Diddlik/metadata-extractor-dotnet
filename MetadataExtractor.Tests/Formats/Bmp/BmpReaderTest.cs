@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@
 //
 #endregion
 
-using JetBrains.Annotations;
+using System.Linq;
 using MetadataExtractor.Formats.Bmp;
 using MetadataExtractor.IO;
 using Xunit;
@@ -33,11 +33,10 @@ namespace MetadataExtractor.Tests.Formats.Bmp
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class BmpReaderTest
     {
-        [NotNull]
-        private static BmpHeaderDirectory ProcessBytes([NotNull] string filePath)
+        private static BmpHeaderDirectory ProcessBytes(string filePath)
         {
-            using (var stream = TestDataUtil.OpenRead(filePath))
-                return new BmpReader().Extract(new SequentialStreamReader(stream));
+            using var stream = TestDataUtil.OpenRead(filePath);
+            return new BmpReader().Extract(new SequentialStreamReader(stream)).OfType<BmpHeaderDirectory>().First();
         }
 
         [Fact]

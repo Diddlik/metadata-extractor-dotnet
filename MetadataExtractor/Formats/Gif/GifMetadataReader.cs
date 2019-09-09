@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,6 @@
 
 using System.IO;
 using System.Linq;
-using JetBrains.Annotations;
 using System.Collections.Generic;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
@@ -42,8 +41,7 @@ namespace MetadataExtractor.Formats.Gif
     public static class GifMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>(2);
 
@@ -55,8 +53,7 @@ namespace MetadataExtractor.Formats.Gif
             return directories;
         }
 
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata(Stream stream)
         {
             return new GifReader().Extract(new SequentialStreamReader(stream)).ToList();
         }

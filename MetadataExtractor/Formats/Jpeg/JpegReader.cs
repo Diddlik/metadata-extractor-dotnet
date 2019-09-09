@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +25,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using JetBrains.Annotations;
 using MetadataExtractor.IO;
 
 namespace MetadataExtractor.Formats.Jpeg
@@ -53,8 +52,7 @@ namespace MetadataExtractor.Formats.Jpeg
 #endif
 
         /// <summary>Reads JPEG SOF values and returns them in a <see cref="JpegDirectory"/>.</summary>
-        [NotNull]
-        public JpegDirectory Extract([NotNull] JpegSegment segment)
+        public JpegDirectory Extract(JpegSegment segment)
         {
             var directory = new JpegDirectory();
 

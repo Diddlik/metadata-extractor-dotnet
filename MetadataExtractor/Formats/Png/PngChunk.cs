@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,23 +22,19 @@
 //
 #endregion
 
-using JetBrains.Annotations;
-
 namespace MetadataExtractor.Formats.Png
 {
     /// <author>Drew Noakes https://drewnoakes.com</author>
     public sealed class PngChunk
     {
-        public PngChunk([NotNull] PngChunkType chunkType, [NotNull] byte[] bytes)
+        public PngChunk(PngChunkType chunkType, byte[] bytes)
         {
             ChunkType = chunkType;
             Bytes = bytes;
         }
 
-        [NotNull]
         public PngChunkType ChunkType { get; }
 
-        [NotNull]
         public byte[] Bytes { get; }
     }
 }

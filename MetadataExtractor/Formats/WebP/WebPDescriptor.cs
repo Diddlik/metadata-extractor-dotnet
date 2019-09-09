@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using JetBrains.Annotations;
 
 namespace MetadataExtractor.Formats.WebP
 {
@@ -31,7 +30,7 @@ namespace MetadataExtractor.Formats.WebP
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public class WebPDescriptor : TagDescriptor<WebPDirectory>
     {
-        public WebPDescriptor([NotNull] WebPDirectory directory)
+        public WebPDescriptor(WebPDirectory directory)
             : base(directory)
         {
         }

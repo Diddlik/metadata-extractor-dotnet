@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -693,9 +693,7 @@ namespace MetadataExtractor.Formats.Exif.Makernotes
 
         public override void Set(int tagType, object value)
         {
-            var array = value as ushort[];
-
-            if (array == null)
+            if (!(value is ushort[] array))
             {
                 base.Set(tagType, value);
                 return;

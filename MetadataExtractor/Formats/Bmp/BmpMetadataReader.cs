@@ -1,6 +1,6 @@
 #region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,7 @@
 #endregion
 
 using System.IO;
-using JetBrains.Annotations;
+using System.Linq;
 using System.Collections.Generic;
 using MetadataExtractor.Formats.FileSystem;
 using MetadataExtractor.IO;
@@ -38,26 +38,25 @@ namespace MetadataExtractor.Formats.Bmp
 {
     /// <summary>Obtains metadata from BMP files.</summary>
     /// <author>Drew Noakes https://drewnoakes.com</author>
+    /// <author>Kevin Mott https://github.com/kwhopper</author>
     public static class BmpMetadataReader
     {
         /// <exception cref="System.IO.IOException"/>
-        [NotNull]
-        public static DirectoryList ReadMetadata([NotNull] string filePath)
+        public static DirectoryList ReadMetadata(string filePath)
         {
             var directories = new List<Directory>(2);
 
             using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-                directories.Add(ReadMetadata(stream));
+                directories.AddRange(ReadMetadata(stream));
 
             directories.Add(new FileMetadataReader().Read(filePath));
 
             return directories;
         }
 
-        [NotNull]
-        public static BmpHeaderDirectory ReadMetadata([NotNull] Stream stream)
+        public static DirectoryList ReadMetadata(Stream stream)
         {
-            return new BmpReader().Extract(new SequentialStreamReader(stream));
+            return new BmpReader().Extract(new SequentialStreamReader(stream)).ToList();
         }
     }
 }

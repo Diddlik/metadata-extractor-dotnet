@@ -1,6 +1,6 @@
 ﻿#region License
 //
-// Copyright 2002-2017 Drew Noakes
+// Copyright 2002-2019 Drew Noakes
 // Ported from Java to C# by Yakov Danilov for Imazen LLC in 2014
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +22,6 @@
 //
 #endregion
 
-using JetBrains.Annotations;
-
 namespace MetadataExtractor
 {
     public interface ITagDescriptor
@@ -39,7 +37,6 @@ namespace MetadataExtractor
         /// A description of the image's value for the specified tag, or
         /// <c>null</c> if the tag hasn't been defined.
         /// </returns>
-        [CanBeNull]
-        string GetDescription(int tagType);
+        string? GetDescription(int tagType);
     }
 }
